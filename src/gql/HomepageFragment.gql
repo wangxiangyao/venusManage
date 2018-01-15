@@ -1,0 +1,129 @@
+fragment Homepage on Homepage {
+  swiper {
+    item {
+      type
+      link
+      img {
+        url
+      }
+    }
+  }
+  guide {
+    item {
+      type
+      title
+      link
+      img {
+        url
+      }
+    }
+  }
+  newproduce {
+    main {
+      type
+      link
+    }
+    item {
+      type
+      link
+      img {
+        url
+      }
+    }
+  }
+  show {
+    main {
+      type
+      link
+      img {
+        url
+      }
+    }
+    item {
+      author {
+        avator
+        name
+        desc
+        tag {
+          text
+        }
+      }
+      link
+      message
+      type
+      img {
+        url
+      }
+    }
+  }
+  buyerrecommend {
+    item {
+      type
+      link
+      img {
+        url
+      }
+      author {
+        avator
+        name
+        desc
+        tag {
+          text
+        }
+      }
+    }
+  }
+  handbags {
+    main {
+      type
+      link
+      img {
+        url
+      }
+    }
+    item {
+      type
+      link
+      img {
+        url
+      }
+    }
+  }
+  travellife {
+    main {
+      type
+      link
+      img {
+        url
+      }
+    }
+    item {
+      type
+      link
+      img {
+        url
+      }
+    }
+  }
+  fulldress {
+    main {
+      type
+      link
+      img {
+        url
+      }
+    }
+    item {
+      type
+      link
+      img {
+        url
+      }
+    }
+  }
+  guesslike {
+    item {
+      id
+    }
+  }
+}

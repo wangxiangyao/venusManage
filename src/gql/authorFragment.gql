@@ -1,0 +1,9 @@
+fragment author on author {
+  avator
+  tag {
+    text
+  }
+  name
+  desc
+  id
+}

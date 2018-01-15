@@ -1,0 +1,7 @@
+#import "./authorFragment.gql"
+
+query getAuthorList {
+  getAuthorList {
+    ...author
+  }
+}

@@ -1,0 +1,7 @@
+#import "./HomepageFragment.gql"
+
+mutation setHomepage ($input: HomepageInput!){
+  setHomepage (input: $input) {
+    ...Homepage
+  }
+}

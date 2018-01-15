@@ -1,0 +1,7 @@
+/build/
+/config/
+/dist/
+/*.js
+/test/unit/coverage/
+/src/page/homepage/editHomepageDate/data.js
+/src/gql/*.gql

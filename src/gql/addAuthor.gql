@@ -1,0 +1,7 @@
+#import "./authorFragment.gql"
+
+mutation addAuthor ($input: authorInput!){
+  addAuthor (input: $input) {
+    ...author
+  }
+}
