@@ -6,6 +6,9 @@
     <el-col :span="3">
       <router-link class="grid-content bg-purple nav-item" to="/author" :class="{active: select === 'author'}">编辑作者</router-link>
     </el-col>
+    <el-col :span="3">
+      <router-link class="grid-content bg-purple nav-item" to="/articleEditor" :class="{active: select === 'articleEditor'}">写文章</router-link>
+    </el-col>
   </el-row>
 </template>
 <script>

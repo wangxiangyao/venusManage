@@ -1,0 +1,19 @@
+mutation addArticle {
+  addArticle {
+    id
+    title
+    shareDesc
+    shareTitle
+    content
+    url
+    author {
+      id
+      avator
+      name
+      desc
+      tag {
+        text
+      }
+    }
+  }
+}

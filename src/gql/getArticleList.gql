@@ -1,0 +1,16 @@
+query getArticleList {
+  getArticleList {
+    id
+    title
+    url
+    author {
+      avator
+      tag {
+        text
+      }
+      name
+      desc
+      id
+    }
+  }
+}

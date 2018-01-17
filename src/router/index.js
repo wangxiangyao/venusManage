@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Homepage from '@/page/homepage'
 import editHomepageDate from '@/page/homepage/editHomepageDate'
 import author from '@/page/author'
+import articleEditor from '@/page/articleEditor'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/author',
       name: 'author',
       component: author
+    },
+    {
+      path: '/articleEditor',
+      name: 'articleEditor',
+      component: articleEditor
     }
   ]
 })

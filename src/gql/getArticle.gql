@@ -1,0 +1,21 @@
+
+
+query getArticle ($id: String) {
+  getArticle (id: $id) {
+      id
+      title
+      shareDesc
+      shareTitle
+      content
+      url
+      author {
+        id
+        avator
+        name
+        desc
+        tag {
+          text
+        }
+      }
+  }
+}

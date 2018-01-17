@@ -1,0 +1,19 @@
+mutation saveArticle ($input: articleInput!){
+  saveArticle (input: $input) {
+    id
+    title
+    shareDesc
+    shareTitle
+    content
+    url
+    author {
+      id
+      avator
+      name
+      desc
+      tag {
+        text
+      }
+    }
+  }
+}
