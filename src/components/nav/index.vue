@@ -1,12 +1,12 @@
 <template>
   <el-row :gutter="12" class='nav-wrapper' type="flex" align="middle">
-    <el-col :span="3">
+    <el-col :span="3" class="nav-box">
       <router-link class="grid-content bg-purple nav-item" to="/editHomepageDate" :class="{active: select === 'editHomepageDate'}">首页数据</router-link>
     </el-col>
-    <el-col :span="3">
+    <el-col :span="3" class="nav-box">
       <router-link class="grid-content bg-purple nav-item" to="/author" :class="{active: select === 'author'}">编辑作者</router-link>
     </el-col>
-    <el-col :span="3">
+    <el-col :span="3" class="nav-box">
       <router-link class="grid-content bg-purple nav-item" to="/articleEditor" :class="{active: select === 'articleEditor'}">写文章</router-link>
     </el-col>
   </el-row>
@@ -32,7 +32,18 @@
     background-color: #000;
     color: #fff;
   }
+  .nav-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
   .nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
     color: #fff;
   }
   .nav-item.active {

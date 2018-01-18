@@ -8,7 +8,7 @@
 
 <script>
   import navigation from '@/components/nav'
-  import { mapMutations } from 'vuex'
+  import { mapMutations, mapActions } from 'vuex'
   import HOMEPAGE_QUERY from '../../gql/getHomepage.gql'
 
   export default {
@@ -31,10 +31,14 @@
           console.log(err)
         }
       })
+      this.getArticleList()
     },
     methods: {
       ...mapMutations('homepage', [
         'STORE_HOMEPAGE_DATA'
+      ]),
+      ...mapActions('article', [
+        'getArticleList'
       ])
     }
   }

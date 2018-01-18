@@ -11,10 +11,10 @@
       <div class="select-link" v-if="data.type == '1'">
         <el-select v-model="data.link" filterable placeholder="请选择" :style="{width: '100%'}">
           <el-option
-            v-for="option in options"
-            :key="option.value"
-            :label="option.label"
-            :value="option.value">
+            v-for="option in articleList"
+            :key="option.url"
+            :label="option.title"
+            :value="option.url">
           </el-option>
         </el-select>
       </div>
@@ -33,6 +33,7 @@
 <script>
 // TODO: 类型检查，出错提示
 // TODO: 显示资讯列表，显示商品id
+  import { mapState } from 'vuex'
   export default {
     name: 'combinationInput-wrapper',
     props: {
@@ -45,6 +46,11 @@
           label: '你好'
         }]
       }
+    },
+    computed: {
+      ...mapState('article', {
+        'articleList': 'byId'
+      })
     }
   }
 </script>

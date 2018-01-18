@@ -122,7 +122,9 @@ export default {
       for (let [key, value] of data.getArticleList.entries()) {
         console.log(key, value)
         state.byId[value.id] = value
-        state.all.push(value.id)
+        if (!state.all.includes(value.id)) {
+          state.all.push(value.id)
+        }
       }
       state.isLoading = false
     },
