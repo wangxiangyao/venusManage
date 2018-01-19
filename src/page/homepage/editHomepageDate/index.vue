@@ -231,7 +231,7 @@
             </div>
             <el-upload
               class="upload"
-              action="http://localhost:5555/api/uploadImg"
+              :action="uploadUrl"
               :on-preview="handlePreview"
               :on-remove="handleRemove(getHomepage.fulldress.main)"
               :on-success="handleUploadSuccess(getHomepage.fulldress.main)"
@@ -247,7 +247,7 @@
               <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'fulldress')"></i>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -272,7 +272,7 @@
             </div>
             <el-upload
               class="upload"
-              action="http://localhost:5555/api/uploadImg"
+              :action="uploadUrl"
               :on-preview="handlePreview"
               :on-remove="handleRemove(getHomepage.travellife.main)"
               :on-success="handleUploadSuccess(getHomepage.travellife.main)"
@@ -288,7 +288,7 @@
               <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'travellife')"></i>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -441,8 +441,7 @@
         return function uploadSuccess (response, file, fileList) {
           console.log(response)
           item.img.push({
-            url: response.url,
-            name: file.name
+            url: response.url
           })
           // console.log(item)
           // console.log(response, file, fileList)
