@@ -1,0 +1,5 @@
+mutation deleteAuthor ($id: String) {
+  deleteAuthor (id: $id) {
+    id
+  }
+}

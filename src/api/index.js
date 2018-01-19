@@ -1,12 +1,13 @@
-import {myFetch} from './fetch'
+import { myFetch } from './fetch'
 
 // function deepCopy (a) {
 //   let obj = JSON.parse(JSON.stringify(a))
 //   return obj
 // }
 export default {
-  getHomepageDate (op = {}) {
-    console.log('请求数据')
-    return myFetch('', op)
+  deleteImg (name) {
+    return myFetch('/api/deleteImg', {
+      name
+    }, 'POST')
   }
 }

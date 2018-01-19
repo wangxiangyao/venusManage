@@ -12,7 +12,7 @@
               <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'swiper')"></i>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -39,7 +39,7 @@
               </div>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -72,7 +72,7 @@
               </div>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -126,7 +126,7 @@
               </div>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -165,7 +165,7 @@
               </div>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -190,7 +190,7 @@
             </div>
             <el-upload
               class="upload"
-              action="http://localhost:5555/api/uploadImg"
+              :action="uploadUrl"
               :on-preview="handlePreview"
               :on-remove="handleRemove(getHomepage.handbags.main)"
               :on-success="handleUploadSuccess(getHomepage.handbags.main)"
@@ -206,7 +206,7 @@
               <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'handbags')"></i>
               <el-upload
                 class="upload"
-                action="http://localhost:5555/api/uploadImg"
+                :action="uploadUrl"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove(item)"
                 :on-success="handleUploadSuccess(item)"
@@ -331,6 +331,7 @@
   import EditData from '@/components/EditData'
   import combinationInput from '@/components/combinationInput'
   import tools from '@/components/tools'
+  import api from '@/api'
   import { mapMutations, mapState } from 'vuex'
 
   import HOMEPAGE_MUTATION from '../../../gql/setHomepage.gql'
@@ -398,7 +399,7 @@
       return {
         guesslikeShowKind: 'card',
         getHomepage: JSON.parse(JSON.stringify(this.$store.state.homepage.data)),
-        uploadUrl: 'http://localhost:5555/api/uploadImg'
+        uploadUrl: this.$store.state.uri + '/api/uploadImg'
       }
     },
     computed: {
@@ -453,6 +454,12 @@
       handleRemove (item) {
         return function remove (file, fileList) {
           console.log(file, fileList, item)
+          if (file.url.includes('http://venus-resource.oss-cn-shanghai.aliyuncs.com')) {
+            api.deleteImg(file.name)
+            .then((res) => {
+              console.log('删除图片情况', res)
+            })
+          }
           item.img.splice(item.img.indexOf(file), 1)
         }
       },

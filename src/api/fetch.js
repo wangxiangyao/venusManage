@@ -1,4 +1,4 @@
-export let baseUrl = 'http://localhost:5555/graphql'
+export let baseUrl = global.URI
 
 export async function myFetch (url = '', data = {}, type = 'GET', base) {
   type = type.toUpperCase()

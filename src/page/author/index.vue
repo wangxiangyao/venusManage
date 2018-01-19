@@ -8,11 +8,12 @@
     </div>
     <div class="author-list" v-if="!isLoading">
       <div class="author" v-for="item in authorList">
+        <i class="el-icon-circle-close-outline delete-icon" @click="handleDelete(item.id)"></i>
         <div class="info">
           <div class="avator">
             <el-upload
               class="avatar-uploader"
-              action="http://localhost:5555/api/uploadImg"
+              :action="imgUpLoadUrl"
               :show-file-list="false"
               :on-success="handleAvatarSuccess(item)"
               :before-upload="beforeAvatarUpload">
@@ -78,7 +79,7 @@
     },
     data () {
       return {
-        url: '',
+        imgUpLoadUrl: this.$store.state.uri + '/api/uploadImg',
         authorList: JSON.parse(JSON.stringify(this.$store.state.author.byId))
       }
     },
@@ -94,7 +95,8 @@
     },
     methods: {
       ...mapActions('author', {
-        addAuthor: 'addAuthor'
+        addAuthor: 'addAuthor',
+        deleteAuthor: 'deleteAuthor'
       }),
       ...mapMutations('author', [
         'UPDATE_AUTHOR'
@@ -125,6 +127,10 @@
       },
       handleAdd () {
         this.addAuthor(emptyAuthor)
+      },
+      handleDelete (id) {
+        console.log(id)
+        this.deleteAuthor(id)
       },
       handleChange (id) {
         this.UPDATE_AUTHOR({
@@ -203,11 +209,20 @@
     display: block;
   }
   .author-wrapper .author-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     padding: 20px;
   }
   .author-wrapper .author {
     width: 300px;
     padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  }
+  .author-wrapper .author .delete-icon {
+    padding: 5px 10px;
   }
   .author-wrapper .author .info{
     display: flex;

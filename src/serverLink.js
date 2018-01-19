@@ -5,9 +5,11 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 Vue.use(VueApollo)
+const uri = global.URI
+console.log()
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:5555/graphql'
+  uri: uri + '/graphql'
 })
 const apolloClient = new ApolloClient({
   link: httpLink,
