@@ -305,6 +305,7 @@
       <EditData title='猜你喜欢' class="guesslike">
         <div class="title-tools" slot="tools">
           <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('guesslike')">新增</el-button>
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="toggleGuesslikeGroupEntry">批量录入</el-button>
           <div class="num">
             共 <span :style="{color: 'red'}">{{getHomepage.guesslike.item.length}}</span> 个商品
           </div>
@@ -316,6 +317,15 @@
           </div> -->
         </div>
         <div class="content">
+          <div class="edit-guesslike-group" v-show="isGuesslikeGroupEntry">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入商品id，以英文','号分割，点击任意空白完成输入。由于本处未添加错误检查，所以，在输入时请注意不要错误，不要有空格"
+              @change="handleChangeGuesslike"
+              v-model="entryGuesslikes">
+            </el-input>
+          </div>
           <div class="edit-content edit-guesslike-wrapper">
             <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.item">
               <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'guesslike')"></i>
@@ -328,6 +338,10 @@
   </div>
 </template>
 <script>
+  // TODO: 猜你喜欢 批量录入
+  // TODO: 猜你喜欢 按从小到大排序
+  // TODO: 猜你喜欢 卡片显示模式：带商品缩略图
+
   import EditData from '@/components/EditData'
   import combinationInput from '@/components/combinationInput'
   import tools from '@/components/tools'
@@ -399,7 +413,9 @@
       return {
         guesslikeShowKind: 'card',
         getHomepage: JSON.parse(JSON.stringify(this.$store.state.homepage.data)),
-        uploadUrl: this.$store.state.uri + '/api/uploadImg'
+        uploadUrl: this.$store.state.uri + '/api/uploadImg',
+        isGuesslikeGroupEntry: false, // 批量录入猜你喜欢开关
+        entryGuesslikes: ''
       }
     },
     computed: {
@@ -464,6 +480,22 @@
       },
       handleAuthorChange (item) {
 
+      },
+      toggleGuesslikeGroupEntry () {
+        this.isGuesslikeGroupEntry = !this.isGuesslikeGroupEntry
+      },
+      handleChangeGuesslike () {
+        console.log(this.entryGuesslikes)
+        let guesslikeArr = this.entryGuesslikes.split(',')
+        console.log(guesslikeArr)
+        guesslikeArr.map((item) => {
+          let obj = {
+            id: item,
+            __typename: 'guesslikeItem'
+          }
+          this.getHomepage.guesslike.item.push(obj)
+        })
+        this.isGuesslikeGroupEntry = false
       },
       queryRemoveTypename (item) {
         let newInput
@@ -591,6 +623,9 @@
     width: 150px;
     padding: 0 25px;
     border: none;
+  }
+  .edit-wrapper .edit-guesslike-group {
+    padding: 30px;
   }
   .edit-wrapper .edit-content.edit-guesslike-wrapper {
     justify-content: flex-start;
