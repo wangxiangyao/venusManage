@@ -9,6 +9,9 @@
       :toolbarsFlag='toolbarsFlag'
       :value='value'
       :placeholder='placeholder'
+      @imgAdd="handleAddImg"
+      @imgDel="handleDelImg"
+      ref="md"
       @change='handleChange' ></mavon-editor>
   </div>
 </template>
@@ -16,6 +19,7 @@
 <script>
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import api from '@/api'
 
 export default {
   name: 'editor',
@@ -91,6 +95,20 @@ export default {
     },
     handleChange (val, render) {
       this.$emit('change', val, render)
+    },
+    handleAddImg (pos, file) {
+      console.log('添加图片', pos, file)
+      let formdata = new FormData()
+      formdata.append('file', file)
+      api.uploadImg(formdata)
+      .then((res) => {
+        console.log(res)
+        this.$refs.md.$img2Url(pos, res.url)
+        console.log(this.$refs.md)
+      })
+    },
+    handleDelImg (pos) {
+      console.log('删除图片')
     }
   }
 }
@@ -102,5 +120,9 @@ export default {
     flex: 1;
     overflow: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+  }
+  .editor .v-show-content img {
+    max-width: 100%;
+    height: auto;
   }
 </style>

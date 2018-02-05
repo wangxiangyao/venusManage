@@ -1,13 +1,13 @@
 export let baseUrl = global.URI
 
-export async function myFetch (url = '', data = {}, type = 'GET', base) {
+export async function myFetch ({url = '', data = {}, headers, type = 'GET', base}) {
   type = type.toUpperCase()
   if (base) {
     url = base + url
   } else {
     url = baseUrl + url
   }
-  console.log(url, type)
+  console.log(url, type, data)
   if (type === 'GET') {
     let dataStr = ''
     Object.keys(data).forEach(key => {
@@ -23,19 +23,20 @@ export async function myFetch (url = '', data = {}, type = 'GET', base) {
     let requestConfig = {
       method: type,
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json'
       },
       mode: 'cors',
       cache: 'force-cache'
     }
-
+    if (headers) {
+      Object.assign(requestConfig.headers, headers)
+    }
     if (type === 'POST' || type === 'PUT' || type === 'DELETE') {
       Object.defineProperty(requestConfig, 'body', {
-        value: JSON.stringify(data)
+        value: data
       })
     }
-
+    console.log('请求配置', requestConfig)
     try {
       const response = await fetch(url, requestConfig)
       console.log('请求中')

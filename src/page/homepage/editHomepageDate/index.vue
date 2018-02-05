@@ -468,9 +468,11 @@
       },
       handleRemove (item) {
         return function remove (file, fileList) {
-          console.log(file, fileList, item)
+          console.log('删除图片', file, fileList, item)
           if (file.url.includes('http://venus-resource.oss-cn-shanghai.aliyuncs.com')) {
-            api.deleteImg(file.name)
+            let name = file.url.split('/').pop()
+            console.log('删除的图片是：', name)
+            api.deleteImg(name)
             .then((res) => {
               console.log('删除图片情况', res)
             })

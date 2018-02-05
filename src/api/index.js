@@ -6,8 +6,17 @@ import { myFetch } from './fetch'
 // }
 export default {
   deleteImg (name) {
-    return myFetch('/api/deleteImg', {
-      name
-    }, 'POST')
+    return myFetch({
+      url: '/api/deleteImg',
+      data: {name: name},
+      type: 'POST'
+    })
+  },
+  uploadImg (file) {
+    return myFetch({
+      url: '/api/uploadImg',
+      data: file,
+      type: 'POST'
+    })
   }
 }
