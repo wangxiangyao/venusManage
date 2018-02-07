@@ -3,6 +3,8 @@ query getArticleList {
     id
     title
     url
+    createAt
+    updateAt
     author {
       avator
       tag {

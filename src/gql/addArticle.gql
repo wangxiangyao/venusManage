@@ -6,6 +6,8 @@ mutation addArticle {
     shareTitle
     content
     url
+    createAt
+    updateAt
     author {
       id
       avator

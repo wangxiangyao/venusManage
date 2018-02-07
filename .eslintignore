@@ -5,3 +5,4 @@
 /test/unit/coverage/
 /src/page/homepage/editHomepageDate/data.js
 /src/gql/*.gql
+/src/components/Editor/markdownPlugin

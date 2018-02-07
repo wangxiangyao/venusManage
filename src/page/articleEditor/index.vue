@@ -182,7 +182,12 @@
   }
   .article-item .title {
     flex: auto;
+    width: 200px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
     padding: 0 10px;
+    font-size: 12px;
   }
   .article-item .article-file.hadSave {
     color: rgb(220, 91, 111);
@@ -193,6 +198,7 @@
     flex-direction: column;
     flex: auto;
     height: 100%;
+    overflow-y: auto;
   }
   .articleContent .actions {
     padding: 10px;
@@ -212,6 +218,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-height: calc( 100vh - 90px);
     padding: 10px;
     flex: auto;
   }

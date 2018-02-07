@@ -12,9 +12,9 @@
         <el-select v-model="data.link" filterable placeholder="请选择" :style="{width: '100%'}">
           <el-option
             v-for="option in articleList"
-            :key="option.url"
+            :key="option.id"
             :label="option.title"
-            :value="option.url">
+            :value="option.id">
           </el-option>
         </el-select>
       </div>
