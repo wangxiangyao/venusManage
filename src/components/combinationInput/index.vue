@@ -4,17 +4,28 @@
       <el-radio-group v-model="data.type">
         <el-radio label="1">资讯</el-radio>
         <el-radio label="2">商品</el-radio>
+        <el-radio label="4">商品列表</el-radio>
         <el-radio label="3">其他</el-radio>
       </el-radio-group>
     </div>
     <div class="input-type">
       <div class="select-link" v-if="data.type == '1'">
-        <el-select v-model="data.link" filterable placeholder="请选择" :style="{width: '100%'}">
+        <el-select v-model="data.link" filterable placeholder="请选择资讯" :style="{width: '100%'}">
           <el-option
             v-for="option in articleList"
             :key="option.id"
             :label="option.title"
             :value="option.id">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="select-link" v-if="data.type == '4'">
+        <el-select v-model="data.link" filterable placeholder="请选择商品列表" :style="{width: '100%'}">
+          <el-option
+            v-for="option in commodityList"
+            :key="option.link"
+            :label="option.title"
+            :value="option.link">
           </el-option>
         </el-select>
       </div>
@@ -44,7 +55,21 @@
         options: [{
           value: 1,
           label: '你好'
-        }]
+        }],
+        commodityList: [
+          {
+            title: '包袋',
+            link: '/#/commodity/CommodityHomepage/1'
+          },
+          {
+            title: '礼服',
+            link: '/#/commodity/CommodityHomepage/2'
+          },
+          {
+            title: '旅行生活',
+            link: '/#/commodity/CommodityHomepage/4'
+          }
+        ]
       }
     },
     computed: {

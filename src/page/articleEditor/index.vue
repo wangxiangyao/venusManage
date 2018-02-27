@@ -133,6 +133,7 @@
       handleSelectArticle (id) {
         console.log('选择文章', id)
         this.articleSelect = id
+        this.getArticle(id)
       },
       handleDeleteArticle (id) {
         // TODO: 删除文章
