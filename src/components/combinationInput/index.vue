@@ -19,7 +19,7 @@
           </el-option>
         </el-select>
       </div>
-      <div class="select-link" v-if="data.type == '4'">
+      <div class="select-link" v-else-if="data.type == '4'">
         <el-select v-model="data.link" filterable placeholder="请选择商品列表" :style="{width: '100%'}">
           <el-option
             v-for="option in commodityList"
