@@ -29,6 +29,11 @@ export default new Router({
       path: '/articleEditor',
       name: 'articleEditor',
       component: () => import('@/page/articleEditor')
+    },
+    {
+      path: '/editMiniPrograms',
+      name: 'editMiniPrograms',
+      component: () => import('@/page/miniPrograms')
     }
   ]
 })

@@ -1,0 +1,7 @@
+#import "./miniHomepageFragment.gql"
+
+mutation setMiniHomepage ($input: miniHomepageInput!){
+  setMiniHomepage (input: $input) {
+    ...miniHomepage
+  }
+}

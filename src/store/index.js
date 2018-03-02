@@ -6,6 +6,7 @@ import mutations from './mutations.js'
 import homepage from './modules/homepage.js'
 import author from './modules/author.js'
 import article from './modules/article.js'
+import miniHomepage from './modules/miniHomepage.js'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ export default new Vuex.Store({
   modules: {
     homepage,
     author,
-    article
+    article,
+    miniHomepage
   },
   stric: debug
 })

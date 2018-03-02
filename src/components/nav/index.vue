@@ -9,6 +9,9 @@
     <el-col :span="3" class="nav-box">
       <router-link class="grid-content bg-purple nav-item" to="/articleEditor" :class="{active: select === 'articleEditor'}">写文章</router-link>
     </el-col>
+    <el-col :span="3" class="nav-box">
+      <router-link class="grid-content bg-purple nav-item" to="/editMiniPrograms" :class="{active: select === 'editMiniPrograms'}">小程序首页</router-link>
+    </el-col>
   </el-row>
 </template>
 <script>

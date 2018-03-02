@@ -1,0 +1,7 @@
+#import "./miniHomepageFragment.gql"
+
+query getMiniHomepage {
+  getMiniHomepage {
+    ...miniHomepage
+  }
+}

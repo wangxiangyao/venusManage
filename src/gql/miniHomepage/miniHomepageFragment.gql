@@ -1,0 +1,38 @@
+fragment miniHomepage on miniHomepage {
+  swiper {
+    item {
+      type
+      link
+      img {
+        url
+      }
+    }
+  }
+  guide {
+    item {
+      type
+      title
+      link
+      img {
+        url
+      }
+    }
+  }
+  topic {
+    main {
+      type
+      link
+      img {
+        url
+      }
+    }
+    item {
+      id
+    }
+  }
+  guesslike {
+    item {
+      id
+    }
+  }
+}
