@@ -66,6 +66,8 @@
   // TODO: 猜你喜欢 按从小到大排序
   // TODO: 猜你喜欢 卡片显示模式：带商品缩略图
 
+  // 通过监听
+
   import EditData from '@/components/EditData'
   import combinationInput from '@/components/combinationInput'
   import tools from '@/components/tools'
@@ -119,7 +121,7 @@
     data () {
       return {
         guesslikeShowKind: 'card',
-        getHomepage: JSON.parse(JSON.stringify(this.$store.state.miniHomepage.data)),
+        getMiniHomepage: JSON.parse(JSON.stringify(this.$store.state.miniHomepage.data)),
         uploadUrl: this.$store.state.uri + '/api/uploadImg',
         isGuesslikeGroupEntry: false, // 批量录入猜你喜欢开关
         entryGuesslikes: ''
