@@ -21,7 +21,8 @@ fragment miniHomepage on miniHomepage {
   topic {
     main {
       type
-      link
+      title
+      desc
       img {
         url
       }

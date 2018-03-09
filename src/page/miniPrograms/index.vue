@@ -1,63 +1,87 @@
 <template>
-  <div class="editHomepageDate">
-    <tools @save='handleSave' />
-    <div class="edit-wrapper" v-if='!isLoading'>
-      <EditData title='顶部轮播图' class="swiper">
-        <div class="title-tools" slot="tools">
-          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('swiper')">新增</el-button>
-        </div>
-        <div class="content">
-          <div class="edit-content">
-            <div class="edit-swiper edit" v-for="item in getMiniHomepage.swiper.item">
-              <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'swiper')"></i>
-              <el-upload
-                class="upload"
-                :action="uploadUrl"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove(item)"
-                :on-success="handleUploadSuccess(item)"
-                :file-list="item.img"
-                list-type="picture">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-              </el-upload>
-              <combinationInput :data='item'/>
+  <div class="editHomepageDate-wrapper">
+    <div class="loading" v-if="isLoading">
+      正在加载
+    </div>
+    <div v-else class="editHomepageDate" >
+      <tools @save='handleSave' />
+      <div class="edit-wrapper">
+        <EditData title='顶部轮播图' class="swiper">
+          <div class="title-tools" slot="tools">
+            <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('swiper')">新增</el-button>
+          </div>
+          <div class="content">
+            <div class="edit-content">
+              <div class="edit-swiper edit" v-for="item in getMiniHomepage.swiper.item">
+                <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'swiper')"></i>
+                <el-upload
+                  class="upload"
+                  :action="uploadUrl"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove(item)"
+                  :on-success="handleUploadSuccess(item)"
+                  :file-list="item.img"
+                  list-type="picture">
+                  <el-button size="small" type="primary">点击上传</el-button>
+                  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>
+                <combinationInput :data='item'/>
+              </div>
             </div>
           </div>
-        </div>
-      </EditData>
-      <EditData title='猜你喜欢' class="guesslike">
-        <div class="title-tools" slot="tools">
-          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('guesslike')">新增</el-button>
-          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="toggleGuesslikeGroupEntry">批量录入</el-button>
-          <div class="num">
-            共 <span :style="{color: 'red'}">{{getMiniHomepage.guesslike.item.length}}</span> 个商品
+        </EditData>
+        <EditData title='专题' class="topics">
+          <div class="title-tools" slot="tools">
+            <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAddTopic">新增</el-button>
           </div>
-          <!-- <div class="showkind">
-            <el-radio-group v-model="guesslikeShowKind">
-              <el-radio label="card">图片卡片</el-radio>
-              <el-radio label="id">id卡片</el-radio>
-            </el-radio-group>
-          </div> -->
-        </div>
-        <div class="content">
-          <div class="edit-guesslike-group" v-show="isGuesslikeGroupEntry">
-            <el-input
-              type="textarea"
-              :rows="2"
-              placeholder="请输入商品id，以英文','号分割，点击任意空白完成输入。由于本处未添加错误检查，所以，在输入时请注意不要错误，不要有空格"
-              @change="handleChangeGuesslike"
-              v-model="entryGuesslikes">
-            </el-input>
-          </div>
-          <div class="edit-content edit-guesslike-wrapper">
-            <div class="edit-guesslike edit" v-for="item in getMiniHomepage.guesslike.item">
-              <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'guesslike')"></i>
-              <el-input v-model="item.id" placeholder="请输入内容" size="mini"></el-input>
+          <div class="content">
+            <div class="edit-content">
+              <div class="edit-swiper edit edit-topic" v-for="item in getMiniHomepage.topic">
+                <i class="el-icon-circle-close-outline delete" @click="handleDeleteTopic(item)"></i>
+                <el-input
+                  type="input"
+                  :style="{'margin': '10px 0'}"
+                  placeholder="专题名"
+                  v-model="item.main.title">
+                </el-input>
+                <el-upload
+                  class="upload"
+                  :action="uploadUrl"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove(item)"
+                  :on-success="handleUploadSuccess(item)"
+                  :file-list="item.img"
+                  list-type="picture">
+                  <el-button size="small" type="primary">点击上传</el-button>
+                  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>
+                <div class="topic-desc">
+                  <el-input
+                    type="textarea"
+                    :rows="2"
+                    placeholder="专题描述"
+                    v-model="item.main.desc">
+                  </el-input>
+                </div>
+                <div class="topic-commodity">
+                  <commodityListShow
+                    :commodityList="item.item"
+                    title="专题商品"
+                    :add="handleAddTopicCommodity(item.item)"
+                    :delete="handleDeleteTopicCommodity(item.item)"
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </EditData>
+        </EditData>
+        <commodityListShow itemName="guesslike"
+          :commodityList="getMiniHomepage.guesslike.item"
+          title="猜你喜欢"
+          @delete="handleDeleteTopicCommodity"
+          @add="handleAdd"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -66,16 +90,18 @@
   // TODO: 猜你喜欢 按从小到大排序
   // TODO: 猜你喜欢 卡片显示模式：带商品缩略图
 
-  // 通过监听
+  /* 通过监听data,来把从后端请求的、存储在vuex的数据，深拷贝进组件的getData
+   * 通过监听组件内的getData，把组件内进行的改变，提交到vuex
+   *
+   * 这样做是为了绕开存储在vuex中的数据无法直接修改的问题
+  */
 
   import EditData from '@/components/EditData'
   import combinationInput from '@/components/combinationInput'
+  import commodityListShow from '@/components/commodityListShow'
   import tools from '@/components/tools'
   import api from '@/api'
-  import { mapMutations, mapState } from 'vuex'
-
-  import MINIHOMEPAGE_QUERY from '@/gql/miniHomepage/getMiniHomepage.gql'
-  import MINIHOMEPAGE_MUTATION from '@/gql/miniHomepage/setMiniHomepage.gql'
+  import { mapMutations, mapState, mapActions } from 'vuex'
 
   // 空数据，用于新建
   // 字段名与真实数据保持一致
@@ -91,20 +117,14 @@
       link: '',
       img: []
     },
-    handbags: {
-      type: '1',
-      link: '',
-      img: []
-    },
-    travellife: {
-      type: '1',
-      link: '',
-      img: []
-    },
-    fulldress: {
-      type: '1',
-      link: '',
-      img: []
+    topic: {
+      main: {
+        type: '5',
+        title: '',
+        desc: '',
+        img: []
+      },
+      item: [{id: ''}]
     },
     guesslike: {
       id: ''
@@ -116,65 +136,65 @@
     components: {
       EditData,
       combinationInput,
-      tools
+      tools,
+      commodityListShow
     },
     data () {
       return {
-        guesslikeShowKind: 'card',
         getMiniHomepage: JSON.parse(JSON.stringify(this.$store.state.miniHomepage.data)),
-        uploadUrl: this.$store.state.uri + '/api/uploadImg',
-        isGuesslikeGroupEntry: false, // 批量录入猜你喜欢开关
-        entryGuesslikes: ''
+        uploadUrl: this.$store.state.uri + '/api/uploadImg'
       }
     },
     computed: {
       ...mapState({
         // 因为直接用computed做input的v-model，导致无法实时更新页面，所以，需要用watch监听data变化，并更新到getHomepage
-        data: state => state.miniHomepage.data,
         isLoading: state => state.miniHomepage.isLoading,
         authorList: state => state.author.byId
       })
     },
     created () {
-      this.$apollo.addSmartQuery('getMiniHomepage', {
-        query: MINIHOMEPAGE_QUERY,
-        result (res) {
-          this.FETCH_MINIHOMEPAGE()
-          console.log(res, '请求结果-小程序首页')
-          this.STORE_MINIHOMEPAGE_DATA(res.data.getMiniHomepage)
-        },
-        error (err) {
-          console.log(err)
-        }
-      })
+      this.queryMiniHomepage()
     },
     mounted () {
       console.log(this)
     },
     methods: {
       ...mapMutations('miniHomepage', [
-        'STORE_MINIHOMEPAGE_DATA',
-        'UPDATE_MINIHOMEPAGE_DATA',
-        'FETCH_MINIHOMEPAGE'
+        'UPDATE_MINIHOMEPAGE_DATA'
       ]),
+      ...mapActions('miniHomepage', {
+        queryMiniHomepage: 'getMiniHomepage',
+        mutationMiniHomepage: 'setMiniHomepage'
+      }),
       handleSave () {
         // TODO: save data
-        this.$apollo.mutate({
-          mutation: MINIHOMEPAGE_MUTATION,
-          variables: {
-            input: this.queryRemoveTypename(this.data)
-          }
-        })
-        .then((res) => {
-          console.log(res)
-        })
+        this.UPDATE_MINIHOMEPAGE_DATA(JSON.parse(JSON.stringify(this.getMiniHomepage)))
+        this.mutationMiniHomepage()
       },
       handleAdd (name) {
         // TODO: 猜你喜欢，从小到大排列，并特殊显示新添加的数据
-        this.getHomepage[name].item.push(emptyData[name])
+        this.getMiniHomepage[name].item.push(emptyData[name])
+      },
+      handleAddTopic () {
+        this.getMiniHomepage.topic.push(emptyData.topic)
+      },
+      handleAddTopicCommodity (item) {
+        // item是当前topic的item字段
+        return () => {
+          item.push({id: ''})
+        }
       },
       handleDelete (item, name) {
-        this.getHomepage[name].item.splice(this.getHomepage[name].item.indexOf(item), 1)
+        console.log(item, name)
+        this.getMiniHomepage[name].item.splice(this.getMiniHomepage[name].item.indexOf(item), 1)
+      },
+      handleDeleteTopic (item) {
+        this.getMiniHomepage.topic.splice(this.getMiniHomepage.topic.indexOf(item), 1)
+      },
+      handleDeleteTopicCommodity (item) {
+        return (commodity) => {
+          item.splice(item.indexOf(commodity), 1)
+        }
       },
       handleUploadSuccess (item) {
         return function uploadSuccess (response, file, fileList) {
@@ -202,25 +222,6 @@
           }
           item.img.splice(item.img.indexOf(file), 1)
         }
-      },
-      handleAuthorChange (item) {
-
-      },
-      toggleGuesslikeGroupEntry () {
-        this.isGuesslikeGroupEntry = !this.isGuesslikeGroupEntry
-      },
-      handleChangeGuesslike () {
-        console.log(this.entryGuesslikes)
-        let guesslikeArr = this.entryGuesslikes.split(',')
-        console.log(guesslikeArr)
-        guesslikeArr.map((item) => {
-          let obj = {
-            id: item,
-            __typename: 'guesslikeItem'
-          }
-          this.getHomepage.guesslike.item.push(obj)
-        })
-        this.isGuesslikeGroupEntry = false
       },
       queryRemoveTypename (item) {
         let newInput
@@ -250,20 +251,8 @@
       }
     },
     watch: {
-      data (newValue) {
-        this.getMiniHomepage = JSON.parse(JSON.stringify(newValue))
-      },
-      getMiniHomepage: {
-        handler: function (val) {
-          let a = JSON.stringify(val)
-          let b = JSON.stringify(this.$store.state.miniHomepage.data)
-          if (a === b) {
-            return
-          }
-          this.UPDATE_MINIHOMEPAGE_DATA(val)
-          console.log('getMiniHomepage 改变了123')
-        },
-        deep: true
+      isLoading (newValue) {
+        this.getMiniHomepage = JSON.parse(JSON.stringify(this.$store.state.miniHomepage.data))
       }
     }
   }
@@ -344,22 +333,11 @@
     position: absolute;
   }
 
-  .edit-wrapper .edit-guesslike {
-    width: 150px;
-    padding: 0 25px;
-    border: none;
-  }
+
   .edit-wrapper .edit-guesslike-group {
     padding: 30px;
   }
-  .edit-wrapper .edit-content.edit-guesslike-wrapper {
-    justify-content: flex-start;
-  }
-  .edit-wrapper .edit-guesslike .delete {
-    right: 5px;
-    top: 7px;
-  }
-  .edit-wrapper .guesslike .num {
-    margin: 0 10px;
+  .edit-swiper.edit-topic {
+    width: 100%;
   }
 </style>
