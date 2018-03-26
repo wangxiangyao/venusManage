@@ -6,6 +6,12 @@ mutation saveArticle ($input: articleInput!){
     shareTitle
     content
     url
+    mainPic {
+      url
+    }
+    thumbnail {
+      url
+    }
     author {
       id
       avator

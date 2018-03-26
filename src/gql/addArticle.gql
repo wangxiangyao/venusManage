@@ -4,6 +4,12 @@ mutation addArticle {
     title
     shareDesc
     shareTitle
+    mainPic {
+      url
+    }
+    thumbnail {
+      url
+    }
     content
     url
     createAt

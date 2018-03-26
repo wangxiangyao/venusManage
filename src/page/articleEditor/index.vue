@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="list">
-          <div class="article-item" :class="{select: articleSelect == item.id}" v-if="item" v-for="item in articleList" @click="handleSelectArticle(item.id)">
+          <div class="article-item" :key="item.id" :class="{select: articleSelect == item.id}" v-if="item" v-for="item in articleList" @click="handleSelectArticle(item.id)">
             <i class="el-icon-document article-file"></i>
             <div class="title">
               {{item.title}}
@@ -48,6 +48,36 @@
               </el-option>
             </el-select>
           </div>
+          <div class="picAbout">
+            <div class="thump pic-item">
+              <div class="title">
+                缩略图
+              </div>
+              <el-upload
+                class="upload"
+                :action="uploadUrl"
+                :on-remove="handleRemovePic(currentShowArticle.thumbnail)"
+                :on-success="handleUploadSuccessPic(currentShowArticle.thumbnail)"
+                :file-list="currentShowArticle.thumbnail"
+                list-type="picture">
+                <el-button size="small" type="primary">点击上传</el-button>
+              </el-upload>
+            </div>
+            <div class="mainPic pic-item">
+              <div class="title">
+                文章主图
+              </div>
+              <el-upload
+                class="upload"
+                :action="uploadUrl"
+                :on-remove="handleRemovePic(currentShowArticle.mainPic)"
+                :on-success="handleUploadSuccessPic(currentShowArticle.mainPic)"
+                :file-list="currentShowArticle.mainPic"
+                list-type="picture">
+                <el-button size="small" type="primary">点击上传</el-button>
+              </el-upload>
+            </div>
+          </div>
           <div class="shareTitle">
             <el-input v-model="currentShowArticle.shareTitle" placeholder="微信分享标题"></el-input>
           </div>
@@ -76,6 +106,7 @@
   // TODO: ctrl + s 保存
   import Editor from '@/components/Editor'
   import options from '@/components/options'
+  import api from '@/api'
   import { mapState, mapActions } from 'vuex'
 
   export default {
@@ -88,7 +119,8 @@
       return {
         articleList: JSON.parse(JSON.stringify(this.$store.state.article.byId)),
         articleSelect: '',
-        authorList: JSON.parse(JSON.stringify(this.$store.state.author.byId))
+        authorList: JSON.parse(JSON.stringify(this.$store.state.author.byId)),
+        uploadUrl: this.$store.state.uri + '/api/uploadImg'
       }
     },
     computed: {
@@ -141,6 +173,30 @@
       },
       handleSaveArticle () {
         this.saveArticle(this.currentShowArticle)
+      },
+      handleRemovePic (item) {
+        return function remove (file, fileList) {
+          console.log('删除图片', file, fileList, item)
+          if (file.url.includes('http://venus-resource.oss-cn-shanghai.aliyuncs.com')) {
+            let name = file.url.split('/').pop()
+            console.log('删除的图片是：', name)
+            api.deleteImg(name)
+            .then((res) => {
+              console.log('删除图片情况', res)
+            })
+          }
+          item.img.splice(item.img.indexOf(file), 1)
+        }
+      },
+      handleUploadSuccessPic (item) {
+        return function uploadSuccess (response, file, fileList) {
+          console.log(response)
+          item.img.push({
+            url: response.url
+          })
+          // console.log(item)
+          // console.log(response, file, fileList)
+        }
       }
     },
     watch: {
@@ -222,5 +278,22 @@
     min-height: calc( 100vh - 90px);
     padding: 10px;
     flex: auto;
+  }
+
+  .articleContent .field .picAbout {
+    display: flex;
+    padding: 20px 0;
+  }
+  .picAbout .pic-item {
+    flex: 1;
+    padding: 0 20px;
+  }
+  .picAbout .title {
+    border-left: 2px solid #000;
+    padding: 0 10px;
+    margin: 10px 0;
+    vertical-align: center;
+    color: #000;
+    font-weight: bold;
   }
 </style>

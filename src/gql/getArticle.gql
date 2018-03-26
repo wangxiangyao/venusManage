@@ -7,6 +7,12 @@ query getArticle ($id: String) {
       shareDesc
       shareTitle
       content
+      mainPic {
+        url
+      }
+      thumbnail {
+        url
+      }
       createAt
       updateAt
       url

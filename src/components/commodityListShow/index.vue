@@ -51,6 +51,7 @@
       },
       title: String,
       add: Function,
+      addById: Function,
       delete: Function
     },
     components: {
@@ -79,10 +80,19 @@
         this.$emit('delete', item, this.itemName)
       },
       toggleGuesslikeGroupEntry () {
-        this.isGuesslikeGroupEntry = !this.isGuesslikeGroupEntry
+        alert('批量录入暂时无法使用')
+        // this.isGuesslikeGroupEntry = !this.isGuesslikeGroupEntry
       },
       handleChangeEntryGuesslike () {
-
+        let guesslikeArr = this.entryGuesslikes.split(',')
+        guesslikeArr.map((item) => {
+          let obj = {
+            id: item,
+            __typename: 'guesslikeItem'
+          }
+          this.getHomepage.guesslike.item.push(obj)
+        })
+        this.isGuesslikeGroupEntry = false
       }
     }
   }

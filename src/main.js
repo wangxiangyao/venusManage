@@ -5,7 +5,7 @@ import './globalField.js'
 import App from './App'
 import router from './router'
 import store from './store'
-import { Upload, Button, Select, Radio, Input, RadioGroup, Option, Row, Col } from 'element-ui'
+import { Upload, Button, Select, Radio, Input, RadioGroup, Option, Row, Col, Lazyload } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import { apolloProvider } from './serverLink.js'
 

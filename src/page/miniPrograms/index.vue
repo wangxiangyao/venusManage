@@ -80,6 +80,7 @@
           title="猜你喜欢"
           @delete="handleDeleteTopicCommodity"
           @add="handleAdd"
+          :addById="handleAddById"
         />
       </div>
     </div>
@@ -182,6 +183,11 @@
         // item是当前topic的item字段
         return () => {
           item.push({id: ''})
+        }
+      },
+      handleAddById (item) {
+        return (commodity) => {
+          item.push(commodity)
         }
       },
       handleDelete (item, name) {
