@@ -11,6 +11,9 @@ import SAVE_ARTICLE from '@/gql/saveArticle.gql'
 import ADD_ARTICLE from '@/gql/addArticle.gql'
 import DELETE_ARTICLE from '@/gql/deleteArticle.gql'
 import { apolloProvider } from '@/serverLink.js'
+
+import { asignObj } from '../tools.js'
+
 const client = apolloProvider.defaultClient
 
 function queryRemoveTypename (item) {
@@ -78,8 +81,10 @@ export default {
         commit('STORE_ARTICLE', res.data.getArticle)
       })
     },
-    saveArticle ({ commit }, data) {
+    saveArticle ({ state, commit }, data) {
+      // asignObj 把data中的多余数据剔除——主要是element——upload组件会自动添加uid，status等多余字段
       commit(FETCH)
+      data = asignObj(JSON.parse(JSON.stringify(state.byId[data.id])), data)
       console.log('要保存的文章：', data)
       client.mutate({
         mutation: SAVE_ARTICLE,

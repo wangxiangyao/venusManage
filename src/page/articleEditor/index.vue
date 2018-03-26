@@ -174,9 +174,9 @@
       handleSaveArticle () {
         this.saveArticle(this.currentShowArticle)
       },
-      handleRemovePic (item) {
+      handleRemovePic (img) {
         return function remove (file, fileList) {
-          console.log('删除图片', file, fileList, item)
+          console.log('删除图片', file, fileList, img)
           if (file.url.includes('http://venus-resource.oss-cn-shanghai.aliyuncs.com')) {
             let name = file.url.split('/').pop()
             console.log('删除的图片是：', name)
@@ -185,13 +185,13 @@
               console.log('删除图片情况', res)
             })
           }
-          item.img.splice(item.img.indexOf(file), 1)
+          img.splice(img.indexOf(file), 1)
         }
       },
-      handleUploadSuccessPic (item) {
+      handleUploadSuccessPic (img) {
         return function uploadSuccess (response, file, fileList) {
           console.log(response)
-          item.img.push({
+          img.push({
             url: response.url
           })
           // console.log(item)
