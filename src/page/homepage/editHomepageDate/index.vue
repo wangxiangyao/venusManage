@@ -370,14 +370,26 @@
       img: []
     },
     show: {
-      author: {},
+      author: {
+        avator: '',
+        desc: '',
+        id: '',
+        name: '',
+        tag: []
+      },
       img: [],
       type: '1',
       link: '',
       message: ''
     },
     buyerrecommend: {
-      author: {},
+      author: {
+        avator: '',
+        desc: '',
+        id: '',
+        name: '',
+        tag: []
+      },
       type: '1',
       link: '',
       img: []
@@ -537,6 +549,7 @@
           if (a === b) {
             return
           }
+          console.log(val)
           this.UPDATE_HOMEPAGE_DATA(val)
           console.log('getHomepage 改变了123')
         },

@@ -12,6 +12,8 @@ mutation saveArticle ($input: articleInput!){
     thumbnail {
       url
     }
+    createAt
+    updateAt
     author {
       id
       avator
