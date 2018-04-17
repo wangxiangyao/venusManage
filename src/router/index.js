@@ -34,6 +34,11 @@ export default new Router({
       path: '/editMiniPrograms',
       name: 'editMiniPrograms',
       component: () => import('@/page/miniPrograms')
+    },
+    {
+      path: '/editModel',
+      name: 'editModel',
+      component: () => import('@/page/editModel')
     }
   ]
 })
