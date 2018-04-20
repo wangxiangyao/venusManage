@@ -17,6 +17,11 @@ export default new Router({
           path: 'editHomepageDate',
           name: 'editHomepageDate',
           component: () => import('@/page/homepage/editHomepageDate')
+        },
+        {
+          path: 'editHomepageDate/v1',
+          name: 'editHomepageDate_v1',
+          component: () => import('@/page/oldHome')
         }
       ]
     },

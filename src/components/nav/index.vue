@@ -12,6 +12,9 @@
     <el-col :span="3" class="nav-box">
       <router-link class="grid-content bg-purple nav-item" to="/editMiniPrograms" :class="{active: select === 'editMiniPrograms'}">小程序首页</router-link>
     </el-col>
+    <el-col :span="3" class="nav-box">
+      <router-link class="grid-content bg-purple nav-item" to="/editHomepageDate/v1" :class="{active: select === 'editHomepageDate_v1'}">老首页</router-link>
+    </el-col>
   </el-row>
 </template>
 <script>
