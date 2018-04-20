@@ -7,15 +7,11 @@
 </template>
 
 <script>
-  import navigation from '@/components/nav'
   import { mapMutations, mapActions } from 'vuex'
   import HOMEPAGE_QUERY from '../../gql/getHomepage.gql'
 
   export default {
     name: 'homepage',
-    components: {
-      navigation
-    },
     data () {
       return {}
     },

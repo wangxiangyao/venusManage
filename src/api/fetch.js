@@ -31,6 +31,7 @@ export async function myFetch ({url = '', data = {}, headers, type = 'GET', base
     if (headers) {
       Object.assign(requestConfig.headers, headers)
     }
+    console.log('upload数据', data)
     if (type === 'POST' || type === 'PUT' || type === 'DELETE') {
       Object.defineProperty(requestConfig, 'body', {
         value: data
