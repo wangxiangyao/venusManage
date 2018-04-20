@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as actions from './actions'
+import actions from './actions'
 import mutations from './mutations.js'
 
 import homepage from './modules/homepage.js'
@@ -19,7 +19,8 @@ export default new Vuex.Store({
     hasMask: false,
     limit: 10,
     offset: 0,
-    uri
+    uri,
+    brands: []
   },
   mutations,
   actions,

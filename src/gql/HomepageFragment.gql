@@ -31,6 +31,36 @@ fragment Homepage on Homepage {
       }
     }
   }
+  starPrivilege {
+    item {
+      type
+      link
+      img {
+        url
+      }
+    }
+  }
+  buyerrecommend {
+    kind
+    item {
+      type
+      link
+      title
+      commodityId
+      desc
+      img {
+        url
+      }
+      author {
+        avator
+        name
+        desc
+        tag {
+          text
+        }
+      }
+    }
+  }
   show {
     main {
       type
@@ -56,20 +86,16 @@ fragment Homepage on Homepage {
       }
     }
   }
-  buyerrecommend {
+  brand {
+    main {
+      type
+      link
+    }
     item {
       type
       link
       img {
         url
-      }
-      author {
-        avator
-        name
-        desc
-        tag {
-          text
-        }
       }
     }
   }
@@ -122,6 +148,22 @@ fragment Homepage on Homepage {
     }
   }
   guesslike {
+    swiper {
+      type
+      link
+      img {
+        url
+      }
+    }
+    fulldress {
+      id
+    }
+    handbags {
+      id
+    }
+    travellife {
+      id
+    }
     item {
       id
     }

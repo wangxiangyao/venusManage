@@ -18,10 +18,12 @@
     methods: {
       ...mapActions('author', [
         'getAuthorList'
-      ])
+      ]),
+      ...mapActions(['getBrand'])
     },
     created () {
       this.getAuthorList()
+      this.getBrand()
     }
 }
 </script>

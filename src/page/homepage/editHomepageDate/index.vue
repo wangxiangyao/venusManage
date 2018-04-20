@@ -86,6 +86,98 @@
           </div>
         </div>
       </EditData>
+      <EditData title='星卡会员特权' class='starPrivilege'>
+        <div class="title-tools" slot="tools">
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('starPrivilege')">新增</el-button>
+        </div>
+        <div class="content">
+          <div class="edit-content">
+            <div class="edit-starPrivilege edit" v-for="item in getHomepage.starPrivilege.item">
+              <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'starPrivilege')"></i>
+              <el-upload
+                class="upload"
+                :action="uploadUrl"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove(item)"
+                :on-success="handleUploadSuccess(item)"
+                :file-list="item.img"
+                list-type="picture">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+              <combinationInput :data='item'/>
+            </div>
+          </div>
+        </div>
+      </EditData>
+      <EditData :title='`买手推荐-${buyerrecommend.kind}`' class="buyerrecommend" v-for="buyerrecommend in getHomepage.buyerrecommend">
+        <div class="title-tools" slot="tools">
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('buyerrecommend', buyerrecommend)">新增</el-button>
+        </div>
+        <div class="subtitle">
+          <el-input v-model="buyerrecommend.kind" placeholder="请输入推文类别"></el-input>
+        </div>
+        <div class="content">
+          <div class="edit-content">
+            <div class="edit-buyerrecommend edit" v-for="item in buyerrecommend.item">
+              <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'buyerrecommend', buyerrecommend)"></i>
+              <div class="edit-author edit-item">
+                <div class="th3-title">
+                  选择作者
+                </div>
+                <el-select value-key="name" v-model="item.author" placeholder="请选择作者">
+                  <el-option
+                    v-for="item in authorList"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item">
+                  </el-option>
+                </el-select>
+              </div>
+              <div class="edit-title edit-item">
+                <div class="th3-title">
+                  编辑买手推荐标题
+                </div>
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="请输入内容"
+                  v-model="item.title">
+                </el-input>
+              </div>
+              <div class="edit-desc edit-item">
+                <div class="th3-title">
+                  编辑买手推荐描述
+                </div>
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="请输入内容"
+                  v-model="item.desc">
+                </el-input>
+              </div>
+              <div class="edit-showCommodity edit-item">
+                <div class="th3-title">
+                  编辑买手推荐对应商品
+                </div>
+                <el-input v-model="item.commodityId" placeholder="请输入数字" size="mini"></el-input>
+              </div>
+              <el-upload
+                class="upload"
+                :action="uploadUrl"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove(item)"
+                :on-success="handleUploadSuccess(item)"
+                :file-list="item.img"
+                list-type="picture">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+              <combinationInput :data='item'/>
+            </div>
+          </div>
+        </div>
+      </EditData>
       <EditData title='买家show' class="show">
         <div class="title-tools" slot="tools">
           <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('show')">新增</el-button>
@@ -140,29 +232,20 @@
           </div>
         </div>
       </EditData>
-      <EditData title='买手推荐' class="buyerrecommend">
+      <EditData title='品牌' class="brand">
         <div class="title-tools" slot="tools">
-          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('buyerrecommend')">新增</el-button>
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('brand')">新增</el-button>
         </div>
         <div class="content">
+          <div class="edit-main">
+            <div class="main-title">
+              主图 or 更多
+            </div>
+            <combinationInput :data='getHomepage.brand.main'/>
+          </div>
           <div class="edit-content">
-            <div class="edit-buyerrecommend edit" v-for="item in getHomepage.buyerrecommend.item">
-              <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'buyerrecommend')"></i>
-              <div class="edit-author edit-item">
-                <div class="edit-author edit-item">
-                  <div class="th3-title">
-                    选择作者
-                  </div>
-                  <el-select value-key="name" v-model="item.author" placeholder="请选择作者">
-                    <el-option
-                      v-for="item in authorList"
-                      :key="item.id"
-                      :label="item.name"
-                      :value="item">
-                    </el-option>
-                  </el-select>
-                </div>
-              </div>
+            <div class="edit-show edit" v-for="item in getHomepage.brand.item">
+              <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'brand')"></i>
               <el-upload
                 class="upload"
                 :action="uploadUrl"
@@ -179,7 +262,7 @@
           </div>
         </div>
       </EditData>
-      <EditData title='包袋' class="handbags">
+      <!-- <EditData title='包袋' class="handbags">
         <div class="title-tools" slot="tools">
           <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('handbags')">新增</el-button>
         </div>
@@ -301,13 +384,37 @@
             </div>
           </div>
         </div>
-      </EditData>
-      <EditData title='猜你喜欢' class="guesslike">
+      </EditData> -->
+      <EditData title='猜你喜欢-轮播图' class="guesslike">
         <div class="title-tools" slot="tools">
-          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAdd('guesslike')">新增</el-button>
-          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="toggleGuesslikeGroupEntry">批量录入</el-button>
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAddGuesslike('swiper')">新增</el-button>
+        </div>
+        <div class="content">
+          <div class="edit-content">
+            <div class="edit-swiper edit" v-for="item in getHomepage.guesslike.swiper">
+              <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'swiper')"></i>
+              <el-upload
+                class="upload"
+                :action="uploadUrl"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove(item)"
+                :on-success="handleUploadSuccess(item)"
+                :file-list="item.img"
+                list-type="picture">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+              <combinationInput :data='item'/>
+            </div>
+          </div>
+        </div>
+      </EditData>
+      <EditData title='猜你喜欢-包袋' class="guesslike">
+        <div class="title-tools" slot="tools">
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAddGuesslike('handbags')">新增</el-button>
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="toggleGuesslikeGroupEntry('handbags')">批量录入</el-button>
           <div class="num">
-            共 <span :style="{color: 'red'}">{{getHomepage.guesslike.item.length}}</span> 个商品
+            共 <span :style="{color: 'red'}">{{getHomepage.guesslike.handbags.length}}</span> 个商品
           </div>
           <!-- <div class="showkind">
             <el-radio-group v-model="guesslikeShowKind">
@@ -317,18 +424,82 @@
           </div> -->
         </div>
         <div class="content">
-          <div class="edit-guesslike-group" v-show="isGuesslikeGroupEntry">
+          <div class="edit-guesslike-group" v-show="isGuesslikeGroupEntry.handbags">
             <el-input
               type="textarea"
               :rows="2"
               placeholder="请输入商品id，以英文','号分割，点击任意空白完成输入。由于本处未添加错误检查，所以，在输入时请注意不要错误，不要有空格"
-              @change="handleChangeGuesslike"
+              @change="handleChangeGuesslike('handbags')"
               v-model="entryGuesslikes">
             </el-input>
           </div>
           <div class="edit-content edit-guesslike-wrapper">
-            <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.item">
-              <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'guesslike')"></i>
+            <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.handbags">
+              <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'handbags')"></i>
+              <el-input v-model="item.id" placeholder="请输入内容" size="mini"></el-input>
+            </div>
+          </div>
+        </div>
+      </EditData>
+      <EditData title='猜你喜欢-礼服' class="guesslike">
+        <div class="title-tools" slot="tools">
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAddGuesslike('fulldress')">新增</el-button>
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="toggleGuesslikeGroupEntry('fulldress')">批量录入</el-button>
+          <div class="num">
+            共 <span :style="{color: 'red'}">{{getHomepage.guesslike.fulldress.length}}</span> 个商品
+          </div>
+          <!-- <div class="showkind">
+            <el-radio-group v-model="guesslikeShowKind">
+              <el-radio label="card">图片卡片</el-radio>
+              <el-radio label="id">id卡片</el-radio>
+            </el-radio-group>
+          </div> -->
+        </div>
+        <div class="content">
+          <div class="edit-guesslike-group" v-show="isGuesslikeGroupEntry.fulldress">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入商品id，以英文','号分割，点击任意空白完成输入。由于本处未添加错误检查，所以，在输入时请注意不要错误，不要有空格"
+              @change="handleChangeGuesslike('fulldress')"
+              v-model="entryGuesslikes">
+            </el-input>
+          </div>
+          <div class="edit-content edit-guesslike-wrapper">
+            <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.fulldress">
+              <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'fulldress')"></i>
+              <el-input v-model="item.id" placeholder="请输入内容" size="mini"></el-input>
+            </div>
+          </div>
+        </div>
+      </EditData>
+      <EditData title='猜你喜欢-旅行' class="guesslike">
+        <div class="title-tools" slot="tools">
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="handleAddGuesslike('travellife')">新增</el-button>
+          <el-button type="primary" size="mini" round icon="el-icon-circle-plus-outline" @click="toggleGuesslikeGroupEntry('travellife')">批量录入</el-button>
+          <div class="num">
+            共 <span :style="{color: 'red'}">{{getHomepage.guesslike.travellife.length}}</span> 个商品
+          </div>
+          <!-- <div class="showkind">
+            <el-radio-group v-model="guesslikeShowKind">
+              <el-radio label="card">图片卡片</el-radio>
+              <el-radio label="id">id卡片</el-radio>
+            </el-radio-group>
+          </div> -->
+        </div>
+        <div class="content">
+          <div class="edit-guesslike-group" v-show="isGuesslikeGroupEntry.travellife">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入商品id，以英文','号分割，点击任意空白完成输入。由于本处未添加错误检查，所以，在输入时请注意不要错误，不要有空格"
+              @change="handleChangeGuesslike('travellife')"
+              v-model="entryGuesslikes">
+            </el-input>
+          </div>
+          <div class="edit-content edit-guesslike-wrapper">
+            <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.travellife">
+              <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'travellife')"></i>
               <el-input v-model="item.id" placeholder="请输入内容" size="mini"></el-input>
             </div>
           </div>
@@ -369,6 +540,11 @@
       link: '',
       img: []
     },
+    starPrivilege: {
+      type: '1',
+      link: '',
+      img: []
+    },
     show: {
       author: {
         avator: '',
@@ -390,6 +566,14 @@
         name: '',
         tag: []
       },
+      title: '',
+      desc: '',
+      commodityId: '',
+      type: '1',
+      link: '',
+      img: []
+    },
+    brand: {
       type: '1',
       link: '',
       img: []
@@ -426,7 +610,9 @@
         guesslikeShowKind: 'card',
         getHomepage: JSON.parse(JSON.stringify(this.$store.state.homepage.data)),
         uploadUrl: this.$store.state.uri + '/api/uploadImg',
-        isGuesslikeGroupEntry: false, // 批量录入猜你喜欢开关
+        isGuesslikeGroupEntry: {
+          handbags: false
+        }, // 批量录入猜你喜欢开关
         entryGuesslikes: ''
       }
     },
@@ -458,12 +644,15 @@
           console.log(res)
         })
       },
-      handleAdd (name) {
+      handleAdd (name, model) {
         // TODO: 猜你喜欢，从小到大排列，并特殊显示新添加的数据
-        this.getHomepage[name].item.push(emptyData[name])
+        // 如果传入的是'buyerrecommend',需要传入model，针对model添加对应项
+        let block = name === 'buyerrecommend' ? model : this.getHomepage[name]
+        block.item.push(emptyData[name])
       },
-      handleDelete (item, name) {
-        this.getHomepage[name].item.splice(this.getHomepage[name].item.indexOf(item), 1)
+      handleDelete (item, name, model) {
+        let block = name === 'buyerrecommend' ? model : this.getHomepage[name]
+        block.item.splice(block.item.indexOf(item), 1)
       },
       handleUploadSuccess (item) {
         return function uploadSuccess (response, file, fileList) {
@@ -495,10 +684,17 @@
       handleAuthorChange (item) {
 
       },
-      toggleGuesslikeGroupEntry () {
-        this.isGuesslikeGroupEntry = !this.isGuesslikeGroupEntry
+      handleAddGuesslike (itemName) {
+        let empty = itemName === 'swiper' ? emptyData.swiper : emptyData.guesslike
+        this.getHomepage.guesslike[itemName].push(empty)
       },
-      handleChangeGuesslike () {
+      handleDeleteGuesslike (item, itemName) {
+        this.getHomepage.guesslike[itemName].splice(this.getHomepage.guesslike[itemName].indexOf(item), 1)
+      },
+      toggleGuesslikeGroupEntry (itemName) {
+        this.isGuesslikeGroupEntry[itemName] = !this.isGuesslikeGroupEntry[itemName]
+      },
+      handleChangeGuesslike (itemName) {
         console.log(this.entryGuesslikes)
         let guesslikeArr = this.entryGuesslikes.split(',')
         console.log(guesslikeArr)
@@ -507,9 +703,9 @@
             id: item,
             __typename: 'guesslikeItem'
           }
-          this.getHomepage.guesslike.item.push(obj)
+          this.getHomepage.guesslike[itemName].push(obj)
         })
-        this.isGuesslikeGroupEntry = false
+        this.isGuesslikeGroupEntry[itemName] = false
       },
       queryRemoveTypename (item) {
         let newInput

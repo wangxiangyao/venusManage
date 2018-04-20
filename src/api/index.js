@@ -18,5 +18,11 @@ export default {
       data: file,
       type: 'POST'
     })
+  },
+  brand () {
+    return myFetch({
+      url: '/api/brands',
+      type: 'GET'
+    })
   }
 }

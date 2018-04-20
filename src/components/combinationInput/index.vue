@@ -5,6 +5,7 @@
         <el-radio label="1">资讯</el-radio>
         <el-radio label="2">商品</el-radio>
         <el-radio label="4">商品列表</el-radio>
+        <el-radio label="5">品牌</el-radio>
         <el-radio label="3">其他</el-radio>
       </el-radio-group>
     </div>
@@ -26,6 +27,16 @@
             :key="option.link"
             :label="option.title"
             :value="option.link">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="select-link" v-else-if="data.type == '5'">
+        <el-select v-model="data.link" filterable placeholder="请选择品牌" :style="{width: '100%'}">
+          <el-option
+            v-for="option in brands"
+            :key="option.id"
+            :label="option.nameCn"
+            :value="option.id">
           </el-option>
         </el-select>
       </div>
@@ -75,7 +86,8 @@
     computed: {
       ...mapState('article', {
         'articleList': 'byId'
-      })
+      }),
+      ...mapState(['brands'])
     }
   }
 </script>
