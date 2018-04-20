@@ -19,6 +19,9 @@
             </div>
             <div class="settings">
               <options>
+                <div class="option" @click='handleCopyAppLink(item.id)'>
+                  复制链接
+                </div>
                 <div class="option" @click='handleDeleteArticle(item.id)'>
                   删除
                 </div>
@@ -107,6 +110,7 @@
   import Editor from '@/components/Editor'
   import options from '@/components/options'
   import api from '@/api'
+  import clipboard from 'clipboard-polyfill'
   import { mapState, mapActions } from 'vuex'
 
   export default {
@@ -197,6 +201,9 @@
           // console.log(item)
           // console.log(response, file, fileList)
         }
+      },
+      handleCopyAppLink (id) {
+        clipboard.writeText(`https://app.starluxe.cn/#/article/${id}`)
       }
     },
     watch: {
