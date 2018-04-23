@@ -1,16 +1,19 @@
 function asignObjOriginHad (origin, data) {
   for (let key in data) {
     if (origin.hasOwnProperty(key)) {
+      // 如果有源数据有key，则深度拷贝
       if (typeof origin[key] === 'object') {
         // 递归调用
         asignObjOriginHad(origin[key], data[key])
       } else {
+        // 如果不是对象，直接拷贝
         if (origin[key] !== data[key]) {
           console.log('改变了', key, data[key])
           origin[key] = data[key]
         }
       }
     } else {
+      // 如果没有包含这个key，如果key是对象，则拷贝过去
       if (typeof data[key] === 'object') {
         origin[key] = data[key]
       }

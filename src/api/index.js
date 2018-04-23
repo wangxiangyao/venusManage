@@ -35,7 +35,7 @@ export default {
   },
   oldHomeUpdata (data) {
     return axios.post(`${global.URI}/api/oldHome`, {
-      data
+      ...data
     })
   }
 }
