@@ -12,7 +12,7 @@
           </div>
           <div class="content">
             <div class="edit-content">
-              <div class="edit-swiper edit" v-for="item in getHomepage.swiper.item">
+              <div class="edit-swiper edit" :key="index" v-for="(item, index) in getHomepage.swiper.item">
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'swiper')"></i>
                 <el-upload
                   class="upload"
@@ -36,7 +36,7 @@
           </div>
           <div class="content">
             <div class="edit-content">
-              <div class="edit-guide edit" v-for="item in getHomepage.guide.item">
+              <div class="edit-guide edit" v-for="(item, index) in getHomepage.guide.item" :key="index">
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'guide')"></i>
                 <div class="subtitle">
                   <el-input v-model="item.title" placeholder="请输入标题"></el-input>
@@ -96,7 +96,7 @@
           </div>
           <div class="content">
             <div class="edit-content">
-              <div class="edit-starPrivilege edit" v-for="item in getHomepage.starPrivilege.item">
+              <div class="edit-starPrivilege edit" v-for="(item, index) in getHomepage.starPrivilege.item" :key="index">
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'starPrivilege')"></i>
                 <el-upload
                   class="upload"
@@ -123,7 +123,7 @@
           </div>
           <div class="content">
             <div class="edit-content">
-              <div class="edit-buyerrecommend edit" v-for="item in buyerrecommend.item">
+              <div class="edit-buyerrecommend edit" :key="index" v-for="(item, index) in buyerrecommend.item">
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'buyerrecommend', buyerrecommend)"></i>
                 <div class="edit-author edit-item">
                   <div class="th3-title">
@@ -194,7 +194,7 @@
               <combinationInput :data='getHomepage.show.main'/>
             </div>
             <div class="edit-content">
-              <div class="edit-show edit" v-for="item in getHomepage.show.item">
+              <div class="edit-show edit" :key="index" v-for="(item, index) in getHomepage.show.item">
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'show')"></i>
                 <div class="edit-author edit-item">
                   <div class="th3-title">
@@ -248,7 +248,7 @@
               <combinationInput :data='getHomepage.brand.main'/>
             </div>
             <div class="edit-content">
-              <div class="edit-show edit" v-for="item in getHomepage.brand.item">
+              <div class="edit-show edit" :key="index" v-for="(item, index) in getHomepage.brand.item">
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'brand')"></i>
                 <el-upload
                   class="upload"
@@ -395,7 +395,7 @@
           </div>
           <div class="content">
             <div class="edit-content">
-              <div class="edit-swiper edit" v-for="item in getHomepage.guesslike.swiper">
+              <div class="edit-swiper edit" :key="index" v-for="(item, index) in getHomepage.guesslike.swiper">
                 <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'swiper')"></i>
                 <el-upload
                   class="upload"
@@ -438,7 +438,7 @@
               </el-input>
             </div>
             <div class="edit-content edit-guesslike-wrapper">
-              <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.handbags">
+              <div class="edit-guesslike edit" :key="index" v-for="(item, index) in getHomepage.guesslike.handbags">
                 <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'handbags')"></i>
                 <el-input v-model="item.id" placeholder="请输入内容" size="mini"></el-input>
               </div>
@@ -470,7 +470,7 @@
               </el-input>
             </div>
             <div class="edit-content edit-guesslike-wrapper">
-              <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.fulldress">
+              <div class="edit-guesslike edit" :key="index" v-for="(item, index) in getHomepage.guesslike.fulldress">
                 <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'fulldress')"></i>
                 <el-input v-model="item.id" placeholder="请输入内容" size="mini"></el-input>
               </div>
@@ -502,7 +502,7 @@
               </el-input>
             </div>
             <div class="edit-content edit-guesslike-wrapper">
-              <div class="edit-guesslike edit" v-for="item in getHomepage.guesslike.travellife">
+              <div class="edit-guesslike edit" :key="index" v-for="(item, index) in getHomepage.guesslike.travellife">
                 <i class="el-icon-circle-close-outline delete" @click="handleDeleteGuesslike(item, 'travellife')"></i>
                 <el-input v-model="item.id" placeholder="请输入内容" size="mini"></el-input>
               </div>
@@ -617,7 +617,9 @@
         getHomepage: JSON.parse(JSON.stringify(this.$store.state.homepage.data)),
         uploadUrl: this.$store.state.uri + '/api/uploadImg',
         isGuesslikeGroupEntry: {
-          handbags: false
+          handbags: false,
+          fulldress: false,
+          travellife: false
         }, // 批量录入猜你喜欢开关
         entryGuesslikes: ''
       }
@@ -629,7 +631,7 @@
         isLoading: state => state.homepage.isLoading,
         authorList: state => state.author.byId
       }),
-      editNav(){
+      editNav () {
         // 买手推荐的nav
         let BC = []
         if (!this.isLoading) {
@@ -641,7 +643,6 @@
           })
         }
         
-
         return [
           {
             text: '顶部轮播图',
@@ -707,7 +708,7 @@
         // TODO: 猜你喜欢，从小到大排列，并特殊显示新添加的数据
         // 如果传入的是'buyerrecommend',需要传入model，针对model添加对应项
         let block = name === 'buyerrecommend' ? model : this.getHomepage[name]
-        block.item.unshift(emptyData[name])
+        block.item.push(emptyData[name])
       },
       handleDelete (item, name, model) {
         let block = name === 'buyerrecommend' ? model : this.getHomepage[name]
