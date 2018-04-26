@@ -203,7 +203,7 @@
         }
       },
       handleCopyAppLink (id) {
-        clipboard.writeText(`https://app.starluxe.cn/#/article/${id}`)
+        clipboard.writeText(`http://app.starluxe.cn/#/article/${id}`)
       }
     },
     watch: {
