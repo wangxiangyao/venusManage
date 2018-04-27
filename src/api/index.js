@@ -29,7 +29,7 @@ export default {
   oldHome () {
     return myFetch({
       type: 'GET',
-      url: '/home/json/main.json',
+      url: '/home/json/main.json?' + Date.now(),
       base: 'http://venus-resource.oss-cn-shanghai.aliyuncs.com'
     })
   },
