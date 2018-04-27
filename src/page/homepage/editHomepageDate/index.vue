@@ -922,7 +922,7 @@
     height: calc(100% - 50px);
   }
   .state .edit-nav {
-    width: 200px;
+    min-width: 150px;
     padding: 10px;
   }
   .state .edit-nav .nav-list {
