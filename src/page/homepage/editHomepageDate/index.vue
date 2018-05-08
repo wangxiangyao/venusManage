@@ -69,7 +69,7 @@
               <combinationInput :data='getHomepage.newproduce.main'/>
             </div>
             <div class="edit-content">
-              <div class="edit-newproduce edit" v-for="item in getHomepage.newproduce.item">
+              <div class="edit-newproduce edit" v-for="item in getHomepage.newproduce.item" :key="item.link">
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'newproduce')"></i>
                 <div class="subtitle">
                   {{item.title}}
@@ -642,7 +642,6 @@
             }
           })
         }
-        
         return [
           {
             text: '顶部轮播图',
@@ -681,7 +680,7 @@
             text: '猜你喜欢-旅行',
             to: '#guesslike-travel'
           }
-        ] 
+        ]
       }
     },
     mounted () {

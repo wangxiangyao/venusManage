@@ -80,8 +80,7 @@
         this.$emit('delete', item, this.itemName)
       },
       toggleGuesslikeGroupEntry () {
-        alert('批量录入暂时无法使用')
-        // this.isGuesslikeGroupEntry = !this.isGuesslikeGroupEntry
+        this.isGuesslikeGroupEntry = !this.isGuesslikeGroupEntry
       },
       handleChangeEntryGuesslike () {
         let guesslikeArr = this.entryGuesslikes.split(',')
@@ -90,7 +89,7 @@
             id: item,
             __typename: 'guesslikeItem'
           }
-          this.getHomepage.guesslike.item.push(obj)
+          this.addById(obj)
         })
         this.isGuesslikeGroupEntry = false
       }

@@ -68,7 +68,9 @@
                     :commodityList="item.item"
                     title="专题商品"
                     :add="handleAddTopicCommodity(item.item)"
+                    :addById="handleAddById(item.item)"
                     :delete="handleDeleteTopicCommodity(item.item)"
+                    
                   />
                 </div>
               </div>
@@ -78,9 +80,9 @@
         <commodityListShow itemName="guesslike"
           :commodityList="getMiniHomepage.guesslike.item"
           title="猜你喜欢"
-          @delete="handleDeleteTopicCommodity"
+          @delete="handleDelete"
           @add="handleAdd"
-          :addById="handleAddById"
+          :addById="handleAddById(getMiniHomepage.guesslike.item)"
         />
       </div>
     </div>
@@ -174,7 +176,7 @@
       },
       handleAdd (name) {
         // TODO: 猜你喜欢，从小到大排列，并特殊显示新添加的数据
-        this.getMiniHomepage[name].item.push(emptyData[name])
+        this.getMiniHomepage[name].item.push(JSON.parse(JSON.stringify(emptyData[name])))
       },
       handleAddTopic () {
         this.getMiniHomepage.topic.push(emptyData.topic)
@@ -186,6 +188,7 @@
         }
       },
       handleAddById (item) {
+        // 用于批量录入
         return (commodity) => {
           item.push(commodity)
         }
