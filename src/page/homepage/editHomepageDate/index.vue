@@ -198,7 +198,7 @@
                 <i class="el-icon-circle-close-outline delete" @click="handleDelete(item, 'show')"></i>
                 <div class="edit-author edit-item">
                   <div class="th3-title">
-                    选择作者
+                    作者
                   </div>
                   <el-select value-key="name" v-model="item.author" placeholder="请选择作者">
                     <el-option
@@ -208,6 +208,51 @@
                       :value="item">
                     </el-option>
                   </el-select>
+                  <div class="config-author">
+                    <div class="author">
+                      <div class="info">
+                        <div class="avator">
+                          <el-upload
+                            class="avatar-uploader"
+                            :action="uploadUrl"
+                            :show-file-list="false"
+                            :on-success="handleAvatarSuccess(item)"
+                            >
+                            <img v-if="item" :src="item.author.avator" class="avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                          </el-upload>
+                        </div>
+                        <div class="name">
+                          <el-input v-model="item.author.name" placeholder="请输入名字"></el-input>
+                        </div>
+                      </div>
+                      <div class="desc">
+                        <el-input
+                          type="textarea"
+                          :rows="2"
+                          placeholder="个性签名"
+                          v-model="item.author.desc"
+                          >
+                        </el-input>
+                      </div>
+                      <div class="tags">
+                        <div class="tag" v-for="(tag, index) in item.author.tag">
+                          <div class="tag-text">
+                            <el-input
+                            size="mini"
+                            placeholder="标签"
+                            v-model="tag.text"
+                            >
+                            </el-input>
+                          </div>
+                          <div class="tag-delete" @click="handleTagDelete(item.author.tag, index)">
+                            <i class="el-icon-close"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <el-button size="mini" type="primary" @click="handleTagAdd(item.author)">新增</el-button>
+                    </div>
+                  </div>
                 </div>
                 <div class="edit-message edit-item">
                   <div class="th3-title">
@@ -766,6 +811,19 @@
         })
         this.isGuesslikeGroupEntry[itemName] = false
       },
+      handleAvatarSuccess (item) {
+        return function (file) {
+          item.author.avator = file.url
+        }
+      },
+      handleTagAdd (item) {
+        item.tag.push({
+          text: ''
+        })
+      },
+      handleTagDelete (tag, index) {
+        tag.splice(index, 1)
+      },
 
       editNavTo (to) {
         console.log(to)
@@ -930,5 +988,47 @@
   .state .edit-nav .nav-list:hover {
     color: #409EFF;
     cursor: pointer;
+  }
+
+  .config-author .avatar {
+    width: 70px;
+    height: 70px;
+    display: block;
+  }
+  .config-author .author-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 20px;
+  }
+  .config-author .author {
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  }
+  .config-author .author .delete-icon {
+    padding: 5px 10px;
+  }
+  .config-author .author .info{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+  .config-author .author .tags {
+    display: flex;
+    padding: 10px 0;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .config-author .tag {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+  }
+  .config-author .tag .tag-text {
+    width: 100px;
   }
 </style>
