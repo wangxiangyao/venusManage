@@ -13,9 +13,13 @@ function asignObjOriginHad (origin, data) {
         }
       }
     } else {
-      // 如果没有包含这个key，如果key是对象，则拷贝过去
+      // 如果没有包含这个key，如果key是对象，如果是img，只拷贝url，其他直接拷贝过去
       if (typeof data[key] === 'object') {
-        origin[key] = data[key]
+        if (data[key].__typename === 'imgItem') {
+          origin[key] = { url: data[key].url }
+        } else {
+          origin[key] = data[key]
+        }
       }
     }
   }
@@ -42,6 +46,7 @@ function asignObjDelete (origin, data) {
 function asignObj (origin, data) {
   // 只有origin中存在的项才用data中的数据更新更新
   asignObjOriginHad(origin, data)
+  console.log(origin)
   asignObjDelete(origin, data)
 
   return origin

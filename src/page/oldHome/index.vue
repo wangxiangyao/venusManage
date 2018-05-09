@@ -463,7 +463,8 @@
         return function uploadSuccess (response, file, fileList) {
           console.log(response)
           item.img.push({
-            url: response.url
+            url: response.url,
+            __typename: 'imgItem'
           })
           // console.log(item)
           // console.log(response, file, fileList)

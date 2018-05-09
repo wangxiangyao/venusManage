@@ -48,9 +48,9 @@
                   class="upload"
                   :action="uploadUrl"
                   :on-preview="handlePreview"
-                  :on-remove="handleRemove(item)"
-                  :on-success="handleUploadSuccess(item)"
-                  :file-list="item.img"
+                  :on-remove="handleRemove(item.main)"
+                  :on-success="handleUploadSuccess(item.main)"
+                  :file-list="item.main.img"
                   list-type="picture">
                   <el-button size="small" type="primary">点击上传</el-button>
                   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -209,7 +209,8 @@
         return function uploadSuccess (response, file, fileList) {
           console.log(response)
           item.img.push({
-            url: response.url
+            url: response.url,
+            __typename: 'imgItem'
           })
           // console.log(item)
           // console.log(response, file, fileList)
