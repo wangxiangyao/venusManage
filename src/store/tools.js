@@ -20,6 +20,8 @@ function asignObjOriginHad (origin, data) {
         } else {
           origin[key] = data[key]
         }
+      } else {
+        delete data[key]
       }
     }
   }

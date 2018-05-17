@@ -263,6 +263,13 @@
     watch: {
       isLoading (newValue) {
         this.getMiniHomepage = JSON.parse(JSON.stringify(this.$store.state.miniHomepage.data))
+      },
+      getMiniHomepage: {
+        handler: function (val) {
+          this.UPDATE_MINIHOMEPAGE_DATA(val)
+          console.log('getMiniHomepage 改变了123')
+        },
+        deep: true
       }
     }
   }

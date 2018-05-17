@@ -72,7 +72,6 @@ export default {
     },
     [STORE_AUTHOR] (state, data) {
       for (let [key, value] of data.getAuthorList.entries()) {
-        console.log(key, value)
         state.byId[value.id] = value
         state.all.push(value.id)
         state.isLoading = false
